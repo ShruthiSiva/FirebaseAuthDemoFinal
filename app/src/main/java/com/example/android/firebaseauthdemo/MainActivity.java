@@ -2,9 +2,11 @@ package com.example.android.firebaseauthdemo;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import static android.R.attr.button;
 
@@ -42,6 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SignIn = (TextView) findViewById(R.id.SignIn);
         ButtonRegister.setOnClickListener(this);
         SignIn.setOnClickListener(this);
+
+        if(firebaseAuth.getCurrentUser()!= null){
+            //start profile activity
+            finish();
+            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        }
 
 
     }
@@ -70,9 +79,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()){
                             progressDialog.hide();
                             Toast.makeText(MainActivity.this, "Registered Succesfully", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
 
                         }
+                        else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            progressDialog.hide();
+                            Toast.makeText(MainActivity.this, "User with this email already exists.", Toast.LENGTH_SHORT).show();
+                        }
                         else{
+                            progressDialog.hide();
                             Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
                         }
 
@@ -89,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(view==SignIn){
             //Open Sign In page
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
     }
