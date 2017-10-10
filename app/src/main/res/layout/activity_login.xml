@@ -20,7 +20,20 @@
         android:layout_centerVertical="true"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="41dp"
+            android:text="User Login"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -38,17 +51,19 @@
 
         <Button
             android:layout_margin="15dp"
-            android:id="@+id/ButtonRegister"
+            android:id="@+id/buttonSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register User" />
+            android:text="Sign In" />
         <TextView
             android:textAlignment="center"
-            android:text="Already Registered? Sign in here"
-            android:id="@+id/SignIn"
+            android:text="No Account? Sign up here"
+            android:id="@+id/SignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+
 
 </RelativeLayout>
